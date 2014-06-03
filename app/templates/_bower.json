@@ -1,6 +1,14 @@
 {
-  "name": "package",
-  "version": "0.0.0",
-  "dependencies": {}
+	"name": "<%= _.slugify(webName) %>",
+	"version": "0.0.1",
+	"dependencies": {
+		"requirejs": "latest",
+		"almond": "latest",
+		"jquery": "git://github.com/components/jquery.git#1",
+		"lodash": "latest",
+		"modernizr": "latest",
+		"normalize-scss": "latest",
+		"bourbon": "latest",
+		"neat": "latest"
+	}
 }
-
