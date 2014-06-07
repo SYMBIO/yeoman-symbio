@@ -9,6 +9,7 @@
     "email": "arnostpleskot@symbiodigital.com",
     "url": "http://www.symbiodigital.com"
   },
+  "repository": {},
   "engines": {
     "node": ">=0.10.0"
   },
@@ -22,10 +23,12 @@
     "yeoman-generator"
   ],
   "dependencies": {
-    "yeoman-generator": "~0.16.0",
     "chalk": "~0.4.0",
-    "yosay": "^0.1.0",
-    "bower-installer": "^0.7.1"
+    "open": "0.0.5",
+    "sudo": "^1.0.3",
+    "underscore": "^1.6.0",
+    "yeoman-generator": "~0.16.0",
+    "yosay": "^0.1.0"
   },
   "devDependencies": {
     "mocha": "*"
