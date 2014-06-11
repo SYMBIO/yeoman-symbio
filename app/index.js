@@ -5,7 +5,6 @@ var path = require('path');
 var	yosay = require('yosay');
 var	chalk = require('chalk');
 var exec = require('child_process').exec;
-var spawn = require('child_process').spawn;
 
 var SymbioGenerator = yeoman.generators.Base.extend({
 	init: function () {
