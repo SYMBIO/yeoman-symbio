@@ -1,0 +1,7 @@
+{
+	"name": "virtualhost-generator",
+	"version": "0.0.1",
+	"dependencies": {
+		"hostile": "^0.6.0"
+	}
+}
