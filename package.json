@@ -2,7 +2,7 @@
   "name": "generator-symbio",
   "version": "0.0.1",
   "description": "SYMBIO Yeoman generator",
-  "license": "MIT",
+  "license": "WTFPL",
   "main": "app/index.js",
   "author": {
     "name": "Arnost Pleskot",

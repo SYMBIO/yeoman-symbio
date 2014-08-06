@@ -35,9 +35,9 @@ var VirtualHost = {
 	createVirtualHost: function() {
 		var content = [
 				'<VirtualHost *:80>',
-				'  DocumentRoot "' + pwd + '"',
+				'  DocumentRoot "' + pwd + '/web"',
 				'  ServerName ' + domain,
-				'  DirectoryIndex index.php,',
+				'  DirectoryIndex index.php, index.html',
 				'  <Directory "' + pwd + '">',
 				'    Options All',
 				'    AllowOverride All',

@@ -49,14 +49,14 @@ module.exports = function(grunt) {
 		copy: {
 			main: {
 				files: [
-					{expand: true, cwd: 'bower_components/almond/', src: ['almond.js'], dest: 'web/js/vendor/'},
-					{expand: true, cwd: 'bower_components/jquery/', src: ['jquery.min.js'], dest: 'web/js/vendor/'},
-					{expand: true, cwd: 'bower_components/lodash/dist/', src: ['lodash.compat.min.js'], dest: 'web/js/vendor/'},
-					{expand: true, cwd: 'bower_components/modernizr/', src: ['modernizr.js'], dest: 'web/js/vendor/'},
-					{expand: true, cwd: 'bower_components/requirejs/', src: ['requirejs.js'], dest: 'web/js/vendor/'},
-					{expand: true, cwd: 'bower_components/normalize-scss/', src: ['_normalize.scss'], dest: 'web/sass/vendor/'},
-					{expand: true, cwd: 'bower_components/bourbon/dist/', src: ['**'], dest: 'web/sass/vendor/bourbon'},
-					{expand: true, cwd: 'bower_components/neat/app/assets/stylesheets/', src: ['**'], dest: 'web/sass/vendor/neat/'}
+					{expand: true, cwd: 'tmp/almond/', src: ['almond.js'], dest: 'web/js/vendor/'},
+					{expand: true, cwd: 'tmp/jquery/', src: ['jquery.min.js'], dest: 'web/js/vendor/'},
+					{expand: true, cwd: 'tmp/lodash/dist/', src: ['lodash.compat.min.js'], dest: 'web/js/vendor/'},
+					{expand: true, cwd: 'tmp/modernizr/', src: ['modernizr.js'], dest: 'web/js/vendor/'},
+					{expand: true, cwd: 'tmp/requirejs/', src: ['requirejs.js'], dest: 'web/js/vendor/'},
+					{expand: true, cwd: 'tmp/normalize-scss/', src: ['_normalize.scss'], dest: 'web/sass/vendor/'},
+					{expand: true, cwd: 'tmp/bourbon/dist/', src: ['**'], dest: 'web/sass/vendor/bourbon'},
+					{expand: true, cwd: 'tmp/neat/app/assets/stylesheets/', src: ['**'], dest: 'web/sass/vendor/neat/'}
 				]
 			}
 		},
@@ -67,7 +67,7 @@ module.exports = function(grunt) {
 					src : ["web/css/**.css", "web/js/**.js", "apps/frontend/templates/**.php", "apps/frontend/modules/default/templates/**.php"]
 				},
 				options: {
-					proxy: "http://local.csob-prevention.cz/",
+					proxy: "<%= hostName =%>",
 					watchTask: true
 				}
 			}
@@ -78,8 +78,8 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-sass');
 	grunt.loadNpmTasks('grunt-contrib-requirejs');
 	grunt.loadNpmTasks('grunt-csso');
-	grunt.loadNpmTasks('grunt-csso');
 	grunt.loadNpmTasks('grunt-contrib-copy');
+	grunt.loadNpmTasks('grunt-browser-sync');
 
 	grunt.registerTask('default', ['browserSync', 'watch']);
 	grunt.registerTask('build', ['requirejs:build', 'sass', 'csso:build']);

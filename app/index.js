@@ -12,11 +12,9 @@ var SymbioGenerator = yeoman.generators.Base.extend({
 		this.pkg = require('../package.json');
 
 		this.on('end', function () {
-			console.log(this.projectType === 'Silex' || this.projectType === 'Symfony 2' || this.projectType === 'OrangeGate 3');
 			if(this.projectType === 'Silex' || this.projectType === 'Symfony 2' || this.projectType === 'OrangeGate 3') {
 				var composer;
 //					done = this.async();
-				console.log(this.globalComposer);
 				if (this.globalComposer) {
 					console.log(this.projectType === 'OrangeGate 3');
 					if (this.projectType === 'OrangeGate 3') {
@@ -54,8 +52,6 @@ var SymbioGenerator = yeoman.generators.Base.extend({
 					});
 				}
 			}
-
-			this.log(chalk.yellow('For creating local host use:', chalk.underline('yo symbio:host <domain_name>')));
 		});
 	},
 
@@ -67,7 +63,12 @@ var SymbioGenerator = yeoman.generators.Base.extend({
 		this.log(yosay('Welcome to the marvelous SYMBIO generator!'));
 
 		console.log(chalk.yellow.bold('Be aware!'));
-		console.log(chalk.yellow('Based on selected framework can first deployment take several minutes (because dependencies are downloaded from git).'));
+		console.log(chalk.yellow('Based on selected framework can first deployment take several minutes (because dependencies are downloaded from git and/or composer).'));
+		console.log();
+		console.log(chalk.yellow('For creating local host use: ', chalk.underline('yo symbio:host')));
+		console.log(chalk.yellow('When you will get EACCESS error during instalation from npm use command ', chalk.underline('sudo chown -R `whoami` ~/.npm'), ' to reclaim ownership of the .npm directory.'));
+		console.log(chalk.yellow('For ENOENT error try using command ', chalk.underline('npm cache clean'), '.'));
+		console.log();
 
 		var prompts = [
 			{
@@ -76,12 +77,12 @@ var SymbioGenerator = yeoman.generators.Base.extend({
 				message : "Your project name",
 				default : this.appname // Default to current folder name
 			},
-			{
-				type: 'confirm',
-				name: 'useAlmond',
-				message: 'Would you like to use Almond (Smaller RequireJS modules loader: https://github.com/jrburke/almond)?',
-				default: false
-			},
+//			{
+//				type: 'confirm',
+//				name: 'useAlmond',
+//				message: 'Would you like to use Almond (Smaller RequireJS modules loader: https://github.com/jrburke/almond)?',
+//				default: false
+//			},
 			{
 				type: 'list',
 				name: 'projectType',
@@ -92,13 +93,27 @@ var SymbioGenerator = yeoman.generators.Base.extend({
 					'Symfony 2',
 					'Silex'
 				]
+			},
+			{
+				type   : 'input',
+				name   : 'hostName',
+				message: 'Domain name?',
+				default: function (answers) {
+					return 'local.' + self._.slugify(answers.webName) + '.cz';
+				}
 			}
 		];
 
 		this.prompt(prompts, function (props) {
 			this.webName = props.webName;
+			this.hostName = props.hostName;
 			this.projectType = props.projectType;
-			this.requirejsMainPath = (!props.useAlmond) ? '../main' : '../vendor/almond';
+//			this.requirejsMainPath = (!props.useAlmond) ? '../main' : '../vendor/almond';
+			this.requirejsMainPath = '../main';
+
+			this.config.set('webName', this.webName);
+			this.config.set('hostName', this.hostName);
+			this.config.set('projectType', this.projectType);
 
 			done();
 		}.bind(this));
@@ -116,9 +131,13 @@ var SymbioGenerator = yeoman.generators.Base.extend({
 
 		this.copy('_package.json', 'package.json');
 		this.copy('_bower.json', 'bower.json');
+		this.copy('_bowerrc', '.bowerrc');
 		this.copy('_GruntFile.js', 'GruntFile.js');
 		this.copy('editorconfig', '.editorconfig');
-//		this.copy('gitignore', '.gitignore');
+
+		if (this.projectType === 'Static') {
+			this.copy('gitignore', '.gitignore');
+		}
 
 		if (this.projectType === 'Silex' || this.projectType === 'Symfony 2') {
 			var appPath = this.destinationRoot(),

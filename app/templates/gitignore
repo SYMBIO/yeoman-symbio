@@ -71,6 +71,7 @@ sftp-config.json
 ### Yeoman ###
 node_modules/
 bower_components/
+tmp/
 *.log
 
 build/
@@ -79,3 +80,7 @@ dist/
 
 ### Sass ###
 .sass-cache
+
+
+# Node script for generating localhost on Mac
+.virtualhost-generator.js
