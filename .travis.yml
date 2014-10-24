@@ -4,4 +4,3 @@ node_js:
 before_install:
   - currentfolder=${PWD##*/}
   - if [ "$currentfolder" != 'generator-symbio' ]; then cd .. && eval "mv $currentfolder generator-symbio" && cd generator-symbio; fi
-
